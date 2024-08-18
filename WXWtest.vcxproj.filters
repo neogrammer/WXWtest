@@ -1,0 +1,189 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <Filter Include="Source Files">
+      <UniqueIdentifier>{4FC737F1-C7A5-4376-A066-2A32D752A2FF}</UniqueIdentifier>
+      <Extensions>cpp;c;cc;cxx;c++;cppm;ixx;def;odl;idl;hpj;bat;asm;asmx</Extensions>
+    </Filter>
+    <Filter Include="Header Files">
+      <UniqueIdentifier>{93995380-89BD-4b04-88EB-625FBE52EBFB}</UniqueIdentifier>
+      <Extensions>h;hh;hpp;hxx;h++;hm;inl;inc;ipp;xsd</Extensions>
+    </Filter>
+    <Filter Include="Resource Files">
+      <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
+      <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
+    </Filter>
+    <Filter Include="src">
+      <UniqueIdentifier>{091b0f01-9eb7-434a-abfc-d6f8a6dee663}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="assets">
+      <UniqueIdentifier>{99c455c9-114a-43d2-8c73-3c149b2eea6e}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src\3rdParty">
+      <UniqueIdentifier>{fdcca0c5-1146-4f26-92e4-71de538d6bf3}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src\action">
+      <UniqueIdentifier>{2e81a726-2451-4724-8a99-0a5912603f8d}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src\action\tpl">
+      <UniqueIdentifier>{dfeb3799-bf21-47a0-ba97-4d02874c23dd}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src\core">
+      <UniqueIdentifier>{cdc4002e-de02-4737-a7ae-61ec5fb67709}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src\core\tpl">
+      <UniqueIdentifier>{02837692-f021-44bf-83c1-f1ecebb38668}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src\entities">
+      <UniqueIdentifier>{2466f7e0-0852-4773-a914-e46df643cd66}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src\level">
+      <UniqueIdentifier>{b55303f5-ac73-4f8f-864b-00b573ef6f64}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="assets\textures">
+      <UniqueIdentifier>{ec10b011-dbb9-4c0f-895b-74b27218eaf0}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="assets\textures\bgs">
+      <UniqueIdentifier>{1c543bd0-a494-4466-85a0-a1c919d7452f}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="assets\textures\bgs\bg1">
+      <UniqueIdentifier>{1496c717-32a2-4a77-8a7e-6384cefe6859}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="assets\textures\bgs\parallax1">
+      <UniqueIdentifier>{f3e9474c-62ce-4846-8147-719c3212384d}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="assets\fonts">
+      <UniqueIdentifier>{fafe18b2-7f07-4507-8eb4-c2fdba97cb5f}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="cidApp.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="cidMain.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Game.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\action\Action.cpp">
+      <Filter>src\action</Filter>
+    </ClCompile>
+    <ClCompile Include="src\core\Cfg.cpp">
+      <Filter>src\core</Filter>
+    </ClCompile>
+    <ClCompile Include="src\core\globals.cpp">
+      <Filter>src\core</Filter>
+    </ClCompile>
+    <ClCompile Include="src\core\rec.cpp">
+      <Filter>src\core</Filter>
+    </ClCompile>
+    <ClCompile Include="src\level\LayeredBackground.cpp">
+      <Filter>src\level</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="cidApp.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="cidMain.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Game.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\3rdParty\olcUTIL_Geometry2D.h">
+      <Filter>src\3rdParty</Filter>
+    </ClInclude>
+    <ClInclude Include="src\action\Action.h">
+      <Filter>src\action</Filter>
+    </ClInclude>
+    <ClInclude Include="src\action\ActionMap.h">
+      <Filter>src\action</Filter>
+    </ClInclude>
+    <ClInclude Include="src\action\ActionTarget.h">
+      <Filter>src\action</Filter>
+    </ClInclude>
+    <ClInclude Include="src\core\Cfg.h">
+      <Filter>src\core</Filter>
+    </ClInclude>
+    <ClInclude Include="src\core\clientspecific.h">
+      <Filter>src\core</Filter>
+    </ClInclude>
+    <ClInclude Include="src\core\globals.h">
+      <Filter>src\core</Filter>
+    </ClInclude>
+    <ClInclude Include="src\core\interrelated.h">
+      <Filter>src\core</Filter>
+    </ClInclude>
+    <ClInclude Include="src\core\rec.h">
+      <Filter>src\core</Filter>
+    </ClInclude>
+    <ClInclude Include="src\core\ResourceManager.h">
+      <Filter>src\core</Filter>
+    </ClInclude>
+    <ClInclude Include="src\entities\animation.h">
+      <Filter>src\entities</Filter>
+    </ClInclude>
+    <ClInclude Include="src\level\LayeredBackground.h">
+      <Filter>src\level</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <Font Include="assets\fonts\font1.ttf">
+      <Filter>assets\fonts</Filter>
+    </Font>
+  </ItemGroup>
+  <ItemGroup>
+    <Image Include="assets\textures\ball.png">
+      <Filter>assets\textures</Filter>
+    </Image>
+    <Image Include="assets\textures\paddle.png">
+      <Filter>assets\textures</Filter>
+    </Image>
+    <Image Include="assets\textures\playerSheet.png">
+      <Filter>assets\textures</Filter>
+    </Image>
+    <Image Include="assets\textures\playerSheet2.png">
+      <Filter>assets\textures</Filter>
+    </Image>
+    <Image Include="assets\textures\bgs\bg1\1.png">
+      <Filter>assets\textures\bgs\bg1</Filter>
+    </Image>
+    <Image Include="assets\textures\bgs\bg1\2.png">
+      <Filter>assets\textures\bgs\bg1</Filter>
+    </Image>
+    <Image Include="assets\textures\bgs\bg1\3.png">
+      <Filter>assets\textures\bgs\bg1</Filter>
+    </Image>
+    <Image Include="assets\textures\bgs\bg1\4.png">
+      <Filter>assets\textures\bgs\bg1</Filter>
+    </Image>
+    <Image Include="assets\textures\bgs\parallax1\bgLayer1.png">
+      <Filter>assets\textures\bgs\parallax1</Filter>
+    </Image>
+    <Image Include="assets\textures\bgs\parallax1\bgLayer2.png">
+      <Filter>assets\textures\bgs\parallax1</Filter>
+    </Image>
+    <Image Include="assets\textures\bgs\parallax1\bgLayer3.png">
+      <Filter>assets\textures\bgs\parallax1</Filter>
+    </Image>
+    <Image Include="assets\textures\bgs\parallax1\bgLayer4.png">
+      <Filter>assets\textures\bgs\parallax1</Filter>
+    </Image>
+    <Image Include="assets\textures\bgs\parallax1\bgLayer5.png">
+      <Filter>assets\textures\bgs\parallax1</Filter>
+    </Image>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="src\action\tpl\ActionMap.tpl">
+      <Filter>src\action\tpl</Filter>
+    </None>
+    <None Include="src\action\tpl\ActionTarget.tpl">
+      <Filter>src\action\tpl</Filter>
+    </None>
+    <None Include="src\core\tpl\ResourceManager.tpl">
+      <Filter>src\core\tpl</Filter>
+    </None>
+  </ItemGroup>
+</Project>
