@@ -243,7 +243,7 @@ void Game::run(int client)
 				{
 					aborted = true;
 					goto abort;
-				}
+				} 
 
 				if (connSocket.GetHandle() != INVALID_SOCKET)
 				{
@@ -266,10 +266,10 @@ void Game::run(int client)
 
 		{
 
-			char recvbuff[15];
+			char recvbuff[17];
 			cid::CResult result = cid::CResult::C_Success;
 
-			result = connSocket.RecvAll(recvbuff, 15);
+			result = connSocket.RecvAll(recvbuff, 17);
 			if (result != cid::CResult::C_Success)
 			{
 				if (result == cid::CResult::C_NotYetImplemented)
@@ -291,7 +291,7 @@ void Game::run(int client)
 				}
 			}
 
-			recvbuff[14] = '\0';
+			recvbuff[16] = '\0';
 
 
 
@@ -317,7 +317,43 @@ void Game::run(int client)
 
 			if (gClientID == 1)
 			{
-				if (stoi(p1X) - playerSpr.getPosition().x > 0.f)
+
+				int currentAnimInt1 = recvbuff[14];
+				if ((PlayerAnimType)currentAnimInt1 == PlayerAnimType::Idle)
+				{
+					if (currentAnim != "idle")
+					{
+						currentAnim = "idle";
+						playerSpr.setTextureRect(animMap[currentAnim].at(0));
+					}
+				}
+				else if ((PlayerAnimType)currentAnimInt1 == PlayerAnimType::Run)
+				{
+					if (currentAnim != "idle2")
+					{
+						currentAnim = "idle2";
+						playerSpr.setTextureRect(animMap[currentAnim].at(0));
+					}
+				}
+
+				int currentAnimInt2 = recvbuff[15];
+				if ((PlayerAnimType)currentAnimInt2 == PlayerAnimType::Idle)
+				{
+					if (currentAnim2 != "idle")
+					{
+						currentAnim2 = "idle";
+						player2Spr.setTextureRect(animMap2[currentAnim2].at(0));
+					}
+				}
+				else if ((PlayerAnimType)currentAnimInt2 == PlayerAnimType::Run)
+				{
+					if (currentAnim2 != "idle2")
+					{
+						currentAnim2 = "idle2";
+						player2Spr.setTextureRect(animMap2[currentAnim2].at(0));
+					}
+				}
+		/*		if (stoi(p1X) - playerSpr.getPosition().x > 0.f)
 				{
 					if (currentAnim != "idle2")
 					{
@@ -355,14 +391,49 @@ void Game::run(int client)
 					currentAnim2 = "idle";
 					player2Spr.setTextureRect(animMap2[currentAnim2].at(0));
 
-				}
+				}*/
 				playerSpr.setPosition({ (float)stoi(p1X), (float)stoi(p1Y) });
 				player2Spr.setPosition({ (float)stoi(p2X), (float)stoi(p2Y) });
 
 			}
 			else
 			{
-				if (stoi(p2X) - playerSpr.getPosition().x > 0.f)
+				int currentAnimInt1 = recvbuff[14];
+				if ((PlayerAnimType)currentAnimInt1 == PlayerAnimType::Idle)
+				{
+					if (currentAnim2 != "idle")
+					{
+						currentAnim2 = "idle";
+						player2Spr.setTextureRect(animMap2[currentAnim2].at(0));
+					}
+				}
+				else if ((PlayerAnimType)currentAnimInt1 == PlayerAnimType::Run)
+				{
+					if (currentAnim2 != "idle2")
+					{
+						currentAnim2 = "idle2";
+						player2Spr.setTextureRect(animMap2[currentAnim2].at(0));
+					}
+				}
+
+				int currentAnimInt2 = recvbuff[15];
+				if ((PlayerAnimType)currentAnimInt2 == PlayerAnimType::Idle)
+				{
+					if (currentAnim != "idle")
+					{
+						currentAnim = "idle";
+						playerSpr.setTextureRect(animMap[currentAnim].at(0));
+					}
+				}
+				else if ((PlayerAnimType)currentAnimInt2 == PlayerAnimType::Run)
+				{
+					if (currentAnim != "idle2")
+					{
+						currentAnim = "idle2";
+						playerSpr.setTextureRect(animMap[currentAnim].at(0));
+					}
+				}
+				/*if (stoi(p2X) - playerSpr.getPosition().x > 0.f)
 				{
 					if (currentAnim != "idle2")
 					{
@@ -400,7 +471,7 @@ void Game::run(int client)
 					currentAnim2 = "idle";
 					player2Spr.setTextureRect(animMap2[currentAnim2].at(0));
 
-				}
+				}*/
 				playerSpr.setPosition({ (float)stoi(p2X), (float)stoi(p2Y) });
 				player2Spr.setPosition({ (float)stoi(p1X), (float)stoi(p1Y) });
 			}
