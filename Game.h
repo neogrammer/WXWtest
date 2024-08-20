@@ -25,6 +25,11 @@ class Game
 
 	sf::Texture* playerTex{};
 	std::map<std::string, std::vector<sf::IntRect> > animMap{};
+	std::vector<sf::IntRect> frames{};
+	std::unordered_map<PlayerAnimType, std::pair<int, int> > animFrameRanges{};
+	int frameIndex{ 0 };
+	PlayerAnimType animType{ PlayerAnimType::Idle };
+
 	std::string currentAnim{ "idle" };
 	int index{ 0 };
 	sf::Sprite playerSpr{};
@@ -34,6 +39,13 @@ class Game
 	std::string currentAnim2{ "idle" };
 	int index2{ 0 };
 	sf::Sprite player2Spr{};
+	PlayerAnimType animType2{ PlayerAnimType::Idle };
+
+	float animDelay{ 0.1f };
+	float animElapsed1{ 0.f };
+	float animElapsed2{ 0.f };
+
+
 
 	float gElapsed{0.f};
 

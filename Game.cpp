@@ -2,7 +2,30 @@
 
 Game::Game()
 	: connSocket{ cid::IPVersion::IPv4, INVALID_SOCKET }
+	, frames{}
+	, animFrameRanges{}
+	, frameIndex{ 0 }
 {
+	frames.clear();
+	frames.reserve(114);
+	for (int y = 0; y < 11; y++)
+	{
+		for (int x = 0; x < 11; x++)
+		{
+			if (y * 11 + x >= 114)
+				break;
+
+			frames.emplace_back(sf::IntRect{ {x * 96, y * 96},{96, 96} });
+		}
+	}
+
+	animFrameRanges.emplace(std::pair{ PlayerAnimType::Idle, std::pair{0, 8} });
+	animFrameRanges.emplace(std::pair{ PlayerAnimType::Run, std::pair{15, 22} });
+	animFrameRanges.emplace(std::pair{ PlayerAnimType::Attack, std::pair{57, 61} });
+	animFrameRanges.emplace(std::pair{ PlayerAnimType::Hit, std::pair{23, 33} });
+	animFrameRanges.emplace(std::pair{ PlayerAnimType::Jump, std::pair{44, 56} });
+
+
 }
 
 Game::~Game()
@@ -317,8 +340,8 @@ void Game::run(int client)
 
 			if (gClientID == 1)
 			{
-
-				int currentAnimInt1 = recvbuff[14];
+				char tmp[2] = { recvbuff[14], '\0' };
+				int currentAnimInt1 = atoi(tmp);
 				if ((PlayerAnimType)currentAnimInt1 == PlayerAnimType::Idle)
 				{
 					if (currentAnim != "idle")
@@ -329,14 +352,15 @@ void Game::run(int client)
 				}
 				else if ((PlayerAnimType)currentAnimInt1 == PlayerAnimType::Run)
 				{
-					if (currentAnim != "idle2")
+					if (currentAnim != "run")
 					{
-						currentAnim = "idle2";
+						currentAnim = "run";
 						playerSpr.setTextureRect(animMap[currentAnim].at(0));
 					}
 				}
 
-				int currentAnimInt2 = recvbuff[15];
+				char tmp2[2] = { recvbuff[15], '\0' };
+				int currentAnimInt2 = atoi(tmp2);
 				if ((PlayerAnimType)currentAnimInt2 == PlayerAnimType::Idle)
 				{
 					if (currentAnim2 != "idle")
@@ -347,9 +371,9 @@ void Game::run(int client)
 				}
 				else if ((PlayerAnimType)currentAnimInt2 == PlayerAnimType::Run)
 				{
-					if (currentAnim2 != "idle2")
+					if (currentAnim2 != "run")
 					{
-						currentAnim2 = "idle2";
+						currentAnim2 = "run";
 						player2Spr.setTextureRect(animMap2[currentAnim2].at(0));
 					}
 				}
@@ -392,13 +416,16 @@ void Game::run(int client)
 					player2Spr.setTextureRect(animMap2[currentAnim2].at(0));
 
 				}*/
+				animType = (PlayerAnimType)currentAnimInt1;
+				animType2 = (PlayerAnimType)currentAnimInt2;
 				playerSpr.setPosition({ (float)stoi(p1X), (float)stoi(p1Y) });
 				player2Spr.setPosition({ (float)stoi(p2X), (float)stoi(p2Y) });
 
 			}
 			else
 			{
-				int currentAnimInt1 = recvbuff[14];
+				char tmp[2] = { recvbuff[14], '\0' };
+				int currentAnimInt1 = atoi(tmp);
 				if ((PlayerAnimType)currentAnimInt1 == PlayerAnimType::Idle)
 				{
 					if (currentAnim2 != "idle")
@@ -409,14 +436,15 @@ void Game::run(int client)
 				}
 				else if ((PlayerAnimType)currentAnimInt1 == PlayerAnimType::Run)
 				{
-					if (currentAnim2 != "idle2")
+					if (currentAnim2 != "run")
 					{
-						currentAnim2 = "idle2";
+						currentAnim2 = "run";
 						player2Spr.setTextureRect(animMap2[currentAnim2].at(0));
 					}
 				}
 
-				int currentAnimInt2 = recvbuff[15];
+				char tmp2[2] = { recvbuff[15], '\0' };
+				int currentAnimInt2 = atoi(tmp2);
 				if ((PlayerAnimType)currentAnimInt2 == PlayerAnimType::Idle)
 				{
 					if (currentAnim != "idle")
@@ -427,9 +455,9 @@ void Game::run(int client)
 				}
 				else if ((PlayerAnimType)currentAnimInt2 == PlayerAnimType::Run)
 				{
-					if (currentAnim != "idle2")
+					if (currentAnim != "run")
 					{
-						currentAnim = "idle2";
+						currentAnim = "run";
 						playerSpr.setTextureRect(animMap[currentAnim].at(0));
 					}
 				}
@@ -472,14 +500,45 @@ void Game::run(int client)
 					player2Spr.setTextureRect(animMap2[currentAnim2].at(0));
 
 				}*/
+				animType = (PlayerAnimType)currentAnimInt1;
+				animType2 = (PlayerAnimType)currentAnimInt2;
 				playerSpr.setPosition({ (float)stoi(p2X), (float)stoi(p2Y) });
 				player2Spr.setPosition({ (float)stoi(p1X), (float)stoi(p1Y) });
 			}
 		}
 		std::cout << "received world data from the server" << std::endl;
+		
+		animElapsed1 += frameTimer.restart().asSeconds();
 
+		if (animElapsed1 >= animDelay)
+		{
+			animElapsed1 = 0.f;
 
-
+			++index;
+			++index2;
+			int topBoundP1 = animFrameRanges.at(animType).second;
+			int bottomBoundP1 = animFrameRanges.at(animType).first;
+			if (index < bottomBoundP1)
+			{
+				index = bottomBoundP1;
+			}
+			else if (index > topBoundP1)
+			{
+				index = bottomBoundP1;
+			}
+			int topBoundP2 = animFrameRanges.at(animType2).second;
+			int bottomBoundP2 = animFrameRanges.at(animType2).first;
+			if (index2 < bottomBoundP2)
+			{
+				index2 = bottomBoundP2;
+			}
+			else if (index2 > topBoundP2)
+			{
+				index2 = bottomBoundP2;
+			}
+			playerSpr.setTextureRect(frames[index]);
+			player2Spr.setTextureRect(frames[index2]);
+		}
 
 		sf::Event e;
 		while (gWnd.pollEvent(e))
@@ -609,38 +668,42 @@ void Game::setupAnims()
 
 	animMap.emplace(std::pair("idle", std::vector<sf::IntRect>{}));
 	animMap["idle"].clear();
-	for (int i = 0; i < 11; i++)
+	for (int i = 0; i < 9; i++)
 	{
 
 		animMap["idle"].push_back({ {i * 96, 0},{96,96} });
 	}
-	animMap.emplace(std::pair("idle2", std::vector<sf::IntRect>{}));
-	animMap["idle2"].clear();
-	for (int i = 0; i < 11; i++)
+	animMap.emplace(std::pair("run", std::vector<sf::IntRect>{}));
+	animMap["run"].clear();
+	for (int i = 15; i < 23; i++)
 	{
-
-		animMap["idle2"].push_back({ {i * 96, 96 * 1},{96,96} });
+		int col = i % 11;
+		int row = i / 11;
+		animMap["run"].push_back({ {col * 96, row * 96},{96,96} });
 	}
-	animMap.emplace(std::pair("idle3", std::vector<sf::IntRect>{}));
-	animMap["idle3"].clear();
-	for (int i = 0; i < 11; i++)
+	animMap.emplace(std::pair("attack", std::vector<sf::IntRect>{}));
+	animMap["attack"].clear();
+	for (int i = 57; i < 62; i++)
 	{
-
-		animMap["idle3"].push_back({ {i * 96, 96 * 2},{96,96} });
+		int col = i % 11;
+		int row = i / 11;
+		animMap["attack"].push_back({ {col * 96, row * 96},{96,96} });
 	}
-	animMap.emplace(std::pair("idle4", std::vector<sf::IntRect>{}));
-	animMap["idle4"].clear();
-	for (int i = 0; i < 11; i++)
+	animMap.emplace(std::pair("jump", std::vector<sf::IntRect>{}));
+	animMap["jump"].clear();
+	for (int i = 44; i < 57; i++)
 	{
-
-		animMap["idle4"].push_back({ {i * 96, 96 * 3},{96,96} });
+		int col = i % 11;
+		int row = i / 11;
+		animMap["jump"].push_back({ {col * 96, row * 96},{96,96} });
 	}
-	animMap.emplace(std::pair("idle5", std::vector<sf::IntRect>{}));
-	animMap["idle5"].clear();
-	for (int i = 0; i < 11; i++)
+	animMap.emplace(std::pair("hit", std::vector<sf::IntRect>{}));
+	animMap["hit"].clear();
+	for (int i = 23; i < 34; i++)
 	{
-
-		animMap["idle5"].push_back({ {i * 96, 96 * 4},{96,96} });
+		int col = i % 11;
+		int row = i / 11;
+		animMap["hit"].push_back({ {col * 96, row * 96},{96,96} });
 	}
 	animMap.emplace(std::pair("idle6", std::vector<sf::IntRect>{}));
 	animMap["idle6"].clear();
@@ -700,38 +763,42 @@ void Game::setupAnims()
 
 	animMap2.emplace(std::pair("idle", std::vector<sf::IntRect>{}));
 	animMap2["idle"].clear();
-	for (int i = 0; i < 11; i++)
+	for (int i = 0; i < 9; i++)
 	{
 
 		animMap2["idle"].push_back({ {i * 96, 0},{96,96} });
 	}
-	animMap2.emplace(std::pair("idle2", std::vector<sf::IntRect>{}));
-	animMap2["idle2"].clear();
-	for (int i = 0; i < 11; i++)
+	animMap2.emplace(std::pair("run", std::vector<sf::IntRect>{}));
+	animMap2["run"].clear();
+	for (int i = 15; i < 23; i++)
 	{
-
-		animMap2["idle2"].push_back({ {i * 96, 96 * 1},{96,96} });
+		int col = i % 11;
+		int row = i / 11;
+		animMap2["run"].push_back({ {col * 96, row * 96},{96,96} });
 	}
-	animMap2.emplace(std::pair("idle3", std::vector<sf::IntRect>{}));
-	animMap2["idle3"].clear();
-	for (int i = 0; i < 11; i++)
+	animMap2.emplace(std::pair("attack", std::vector<sf::IntRect>{}));
+	animMap2["attack"].clear();
+	for (int i = 57; i < 62; i++)
 	{
-
-		animMap2["idle3"].push_back({ {i * 96, 96 * 2},{96,96} });
+		int col = i % 11;
+		int row = i / 11;
+		animMap2["attack"].push_back({ {col * 96, row * 96},{96,96} });
 	}
-	animMap2.emplace(std::pair("idle4", std::vector<sf::IntRect>{}));
-	animMap2["idle4"].clear();
-	for (int i = 0; i < 11; i++)
+	animMap2.emplace(std::pair("jump", std::vector<sf::IntRect>{}));
+	animMap2["jump"].clear();
+	for (int i = 44; i < 57; i++)
 	{
-
-		animMap2["idle4"].push_back({ {i * 96, 96 * 3},{96,96} });
+		int col = i % 11;
+		int row = i / 11;
+		animMap2["jump"].push_back({ {col * 96, row * 96},{96,96} });
 	}
-	animMap2.emplace(std::pair("idle5", std::vector<sf::IntRect>{}));
-	animMap2["idle5"].clear();
-	for (int i = 0; i < 11; i++)
+	animMap2.emplace(std::pair("hit", std::vector<sf::IntRect>{}));
+	animMap2["hit"].clear();
+	for (int i = 23; i < 34; i++)
 	{
-
-		animMap2["idle5"].push_back({ {i * 96, 96 * 4},{96,96} });
+		int col = i % 11;
+		int row = i / 11;
+		animMap2["hit"].push_back({ {col * 96, row * 96},{96,96} });
 	}
 	animMap2.emplace(std::pair("idle6", std::vector<sf::IntRect>{}));
 	animMap2["idle6"].clear();
