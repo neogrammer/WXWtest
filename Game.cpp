@@ -500,8 +500,8 @@ void Game::run(int client)
 					player2Spr.setTextureRect(animMap2[currentAnim2].at(0));
 
 				}*/
-				animType = (PlayerAnimType)currentAnimInt1;
-				animType2 = (PlayerAnimType)currentAnimInt2;
+				animType = (PlayerAnimType)currentAnimInt2;
+				animType2 = (PlayerAnimType)currentAnimInt1;
 				playerSpr.setPosition({ (float)stoi(p2X), (float)stoi(p2Y) });
 				player2Spr.setPosition({ (float)stoi(p1X), (float)stoi(p1Y) });
 			}
