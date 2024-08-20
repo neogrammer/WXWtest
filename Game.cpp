@@ -428,18 +428,18 @@ void Game::run(int client)
 				int currentAnimInt1 = atoi(tmp);
 				if ((PlayerAnimType)currentAnimInt1 == PlayerAnimType::Idle)
 				{
-					if (currentAnim != "idle")
+					if (currentAnim2 != "idle")
 					{
-						currentAnim = "idle";
-						playerSpr.setTextureRect(animMap[currentAnim].at(0));
+						currentAnim2 = "idle";
+						player2Spr.setTextureRect(animMap2[currentAnim2].at(0));
 					}
 				}
 				else if ((PlayerAnimType)currentAnimInt1 == PlayerAnimType::Run)
 				{
-					if (currentAnim != "run")
+					if (currentAnim2 != "run")
 					{
-						currentAnim = "run";
-						playerSpr.setTextureRect(animMap[currentAnim].at(0));
+						currentAnim2 = "run";
+						player2Spr.setTextureRect(animMap2[currentAnim2].at(0));
 					}
 				}
 
@@ -447,18 +447,18 @@ void Game::run(int client)
 				int currentAnimInt2 = atoi(tmp2);
 				if ((PlayerAnimType)currentAnimInt2 == PlayerAnimType::Idle)
 				{
-					if (currentAnim2 != "idle")
+					if (currentAnim != "idle")
 					{
-						currentAnim2 = "idle";
-						player2Spr.setTextureRect(animMap2[currentAnim2].at(0));
+						currentAnim = "idle";
+						playerSpr.setTextureRect(animMap[currentAnim].at(0));
 					}
 				}
 				else if ((PlayerAnimType)currentAnimInt2 == PlayerAnimType::Run)
 				{
-					if (currentAnim2 != "run")
+					if (currentAnim != "run")
 					{
-						currentAnim2 = "run";
-						player2Spr.setTextureRect(animMap2[currentAnim2].at(0));
+						currentAnim = "run";
+						playerSpr.setTextureRect(animMap[currentAnim].at(0));
 					}
 				}
 				/*if (stoi(p2X) - playerSpr.getPosition().x > 0.f)
